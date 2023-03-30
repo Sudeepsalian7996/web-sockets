@@ -11,7 +11,12 @@ s.on("connection",function(ws){
         })
     })
     ws.on("close",function(){
-        console.log("i lost an connection")
+        s.clients.forEach((client)=>{
+            if(client!=ws){
+                client.send("user left")
+            }
+            
+        })
     })
     ws.send("user connected")
 })
